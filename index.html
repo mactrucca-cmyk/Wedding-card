@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="pageTitle">Thiệp Cưới – Minh &amp; Linh</title>
+  <meta property="og:title" content="Thiệp Cưới – Minh & Linh" />
+  <meta property="og:description" content="Trân trọng kính mời bạn tới dự lễ cưới của chúng tôi" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- Particle Canvas for hearts & petals -->
+<canvas id="particleCanvas"></canvas>
+
+<!-- Floating Music Player -->
+<div class="music-player" id="musicPlayer">
+  <button class="music-btn" id="musicToggle" aria-label="Phát/Dừng nhạc">
+    <svg class="ic-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+    <svg class="ic-pause hidden" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+  </button>
+  <div class="music-meta">
+    <span>♫ Nhạc lãng mạn</span>
+    <div class="music-bars" id="musicBars">
+      <b></b><b></b><b></b><b></b><b></b>
+    </div>
+  </div>
+</div>
+<audio id="bgMusic" loop preload="none">
+  <source src="music/romantic.mp3" type="audio/mpeg" />
+</audio>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-veil"></div>
+  <div class="hero-body">
+    <p class="hero-eyebrow anim-up">Trân trọng kính mời</p>
+    <h1 class="hero-names anim-up d1">
+      <span id="heroGroom">Minh</span>
+      <span class="hero-heart">
+        <svg viewBox="0 0 80 70" xmlns="http://www.w3.org/2000/svg">
+          <path d="M40 65 C30 55,5 42,5 22 C5 10,14 4,24 7 C30 9,36 14,40 19 C44 14,50 9,56 7 C66 4,75 10,75 22 C75 42,50 55,40 65Z" fill="#F7A36A"/>
+        </svg>
+      </span>
+      <span id="heroBride">Linh</span>
+    </h1>
+    <div class="hero-sep anim-up d2"><span></span><em>✦</em><span></span></div>
+    <p class="hero-date anim-up d2" id="heroDate">15 · 06 · 2025</p>
+    <p class="hero-quote anim-up d3">"Hành trình của hai trái tim hòa làm một,<br>bắt đầu từ hôm nay và kéo dài mãi mãi"</p>
+    <div class="guest-greeting anim-up d3" id="guestGreeting"></div>
+    <button class="btn-open anim-up d4" onclick="scrollTo('loveStory')">
+      Mở Thiệp Cưới <span>↓</span>
+    </button>
+  </div>
+  <div class="hero-scroll-cue"><div></div></div>
+</section>
+
+<!-- ===================== LOVE STORY ===================== -->
+<section class="page-section" id="loveStory">
+  <div class="wrap">
+    <header class="sec-head">
+      <p class="eyebrow">Our Story</p>
+      <h2>Chuyện Tình Yêu</h2>
+      <p class="sub">Mỗi khoảnh khắc là một trang trong cuốn sách cuộc đời chúng tôi</p>
+    </header>
+    <div class="timeline" id="timeline"></div>
+  </div>
+</section>
+
+<!-- ===================== COUPLE ===================== -->
+<section class="page-section bg-cream" id="couple">
+  <div class="wrap">
+    <header class="sec-head">
+      <p class="eyebrow">The Couple</p>
+      <h2>Cô Dâu &amp; Chú Rể</h2>
+    </header>
+    <div class="couple-row" id="coupleRow"></div>
+  </div>
+</section>
+
+<!-- ===================== FAMILY ===================== -->
+<section class="page-section" id="family">
+  <div class="wrap">
+    <header class="sec-head">
+      <p class="eyebrow">Our Families</p>
+      <h2>Thông Tin Hai Họ</h2>
+    </header>
+    <div class="family-cols" id="familyCols"></div>
+  </div>
+</section>
+
+<!-- ===================== EVENTS ===================== -->
+<section class="page-section bg-cream" id="events">
+  <div class="wrap">
+    <header class="sec-head">
+      <p class="eyebrow">Save The Date</p>
+      <h2>Sự Kiện Hôn Lễ</h2>
+      <p class="sub">Chúng tôi trân trọng kính mời quý vị cùng chia sẻ niềm vui</p>
+    </header>
+    <div class="events-row" id="eventsRow"></div>
+  </div>
+</section>
+
+<!-- ===================== COUNTDOWN ===================== -->
+<section class="countdown-sec" id="countdown">
+  <div class="cd-overlay"></div>
+  <div class="wrap rel">
+    <p class="eyebrow" style="color:rgba(255,255,255,.75)">Counting Down</p>
+    <h2 style="color:#fff;font-family:'Playfair Display',serif;font-size:clamp(1.6rem,4vw,2.8rem);margin-bottom:2.5rem">Đếm Ngược Ngày Cưới</h2>
+    <div class="cd-units">
+      <div class="cd-unit"><span class="cd-num" id="cDays">00</span><span class="cd-label">Ngày</span></div>
+      <span class="cd-col">:</span>
+      <div class="cd-unit"><span class="cd-num" id="cHours">00</span><span class="cd-label">Giờ</span></div>
+      <span class="cd-col">:</span>
+      <div class="cd-unit"><span class="cd-num" id="cMins">00</span><span class="cd-label">Phút</span></div>
+      <span class="cd-col">:</span>
+      <div class="cd-unit"><span class="cd-num" id="cSecs">00</span><span class="cd-label">Giây</span></div>
+    </div>
+    <p class="cd-msg" id="cdMsg"></p>
+  </div>
+</section>
+
+<!-- ===================== GALLERY ===================== -->
+<section class="page-section" id="gallery">
+  <div class="wrap">
+    <header class="sec-head">
+      <p class="eyebrow">Memories</p>
+      <h2>Album Ảnh</h2>
+      <p class="sub">Những khoảnh khắc đẹp không thể nào quên</p>
+    </header>
+    <div class="masonry" id="galleryGrid"></div>
+    <div class="text-center mt-4">
+      <a href="album.html" class="btn-ghost">Xem Tất Cả Ảnh →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== RSVP ===================== -->
+<section class="page-section bg-cream" id="rsvp">
+  <div class="wrap">
+    <header class="sec-head">
+      <p class="eyebrow">RSVP</p>
+      <h2>Xác Nhận Tham Dự</h2>
+      <p class="sub">Vui lòng xác nhận trước ngày 01/06/2025</p>
+    </header>
+    <div class="rsvp-box">
+      <form id="rsvpForm" class="rsvp-form" onsubmit="submitRSVP(event)">
+        <div class="form-row2">
+          <div class="fg">
+            <label>Họ và tên *</label>
+            <input type="text" id="rName" placeholder="Nguyễn Văn A" required />
+          </div>
+          <div class="fg">
+            <label>Số điện thoại</label>
+            <input type="tel" id="rPhone" placeholder="0912 345 678" />
+          </div>
+        </div>
+        <div class="fg">
+          <label>Số người tham dự</label>
+          <select id="rGuests">
+            <option value="1">1 người</option>
+            <option value="2">2 người</option>
+            <option value="3">3 người</option>
+            <option value="4">4 người</option>
+            <option value="5">5 người trở lên</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label>Lời chúc mừng</label>
+          <textarea id="rMsg" rows="4" placeholder="Gửi lời chúc tới cô dâu và chú rể..."></textarea>
+        </div>
+        <button type="submit" class="btn-submit">Gửi Xác Nhận ❤</button>
+      </form>
+      <div class="rsvp-ok hidden" id="rsvpOk">
+        <div class="ok-icon">✓</div>
+        <h3>Cảm ơn bạn rất nhiều!</h3>
+        <p>Chúng tôi rất mong được gặp bạn trong ngày trọng đại.</p>
+        <button onclick="resetRSVP()" class="btn-ghost" style="margin-top:1rem">Thêm khách khác</button>
+      </div>
+      <div id="rsvpGuestList" class="rsvp-guests"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SHARE ===================== -->
+<section class="page-section" id="share">
+  <div class="wrap">
+    <header class="sec-head">
+      <p class="eyebrow">Share</p>
+      <h2>Chia Sẻ Thiệp Cưới</h2>
+      <p class="sub">Hãy lan toả niềm vui này tới mọi người thân yêu</p>
+    </header>
+    <div class="share-layout">
+      <div class="share-btns">
+        <button class="sb fb" onclick="shareToFB()">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          Facebook
+        </button>
+        <button class="sb ms" onclick="shareToMessenger()">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.145 2 11.243c0 2.936 1.32 5.56 3.404 7.338v3.419l3.19-1.755c.853.237 1.756.365 2.693.365 5.523 0 10-4.145 10-9.243S17.523 2 12 2zm1.03 12.423l-2.55-2.718-4.98 2.718 5.48-5.818 2.617 2.718 4.912-2.718-5.48 5.818z"/></svg>
+          Messenger
+        </button>
+        <button class="sb zl" onclick="shareToZalo()">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm.5 14.5h-1v-6h1v6zm0-8h-1V7h1v1.5z"/></svg>
+          Zalo
+        </button>
+        <button class="sb cp" onclick="copyLink()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          Sao chép
+        </button>
+      </div>
+      <div class="qr-card">
+        <div id="qrBox"></div>
+        <p>Quét QR để mở thiệp</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="footer">
+  <div class="footer-deco"></div>
+  <div class="footer-inner">
+    <p class="footer-names" id="footerNames">Minh &amp; Linh</p>
+    <p class="footer-wedding-date" id="footerDate">15 · 06 · 2025</p>
+    <div class="footer-rule"><span></span><em>❤</em><span></span></div>
+    <p class="footer-thanks">Cảm ơn bạn đã đến chung vui cùng chúng tôi.<br>Sự hiện diện của bạn là món quà quý giá nhất với chúng tôi.</p>
+    <p class="footer-tel" id="footerTel">Liên hệ: <a href="tel:0912345678">0912 345 678</a></p>
+    <p class="footer-made">Made with ❤ for our special day</p>
+  </div>
+</footer>
+
+<!-- Lightbox -->
+<div class="lightbox hidden" id="lightbox">
+  <div class="lb-bg" onclick="closeLB()"></div>
+  <button class="lb-close" onclick="closeLB()">✕</button>
+  <button class="lb-prev" onclick="lbNav(-1)">‹</button>
+  <button class="lb-next" onclick="lbNav(1)">›</button>
+  <div class="lb-inner">
+    <img id="lbImg" src="" alt="" />
+    <p id="lbCaption" class="lb-caption"></p>
+  </div>
+</div>
+
+<!-- Toast notification -->
+<div class="toast hidden" id="toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

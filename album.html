@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Album Ảnh – Minh &amp; Linh</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="album-page">
+
+<canvas id="particleCanvas"></canvas>
+
+<!-- Header -->
+<header class="album-header">
+  <a href="index.html" class="back-btn">← Về Thiệp Cưới</a>
+  <div class="album-header-title">
+    <p class="eyebrow" style="text-align:center">Gallery</p>
+    <h1>Album Ảnh Cưới</h1>
+    <p class="sub" style="text-align:center" id="albumSubtitle">Minh &amp; Linh · 15/06/2025</p>
+  </div>
+  <div style="width:140px"></div>
+</header>
+
+<!-- Filter -->
+<div class="filter-bar" id="filterBar">
+  <button class="filter-btn active" data-cat="all">Tất cả</button>
+  <button class="filter-btn" data-cat="dinh-hon">Đính hôn</button>
+  <button class="filter-btn" data-cat="anh-cuoi">Ảnh cưới</button>
+  <button class="filter-btn" data-cat="le-cuoi">Lễ cưới</button>
+  <button class="filter-btn" data-cat="tiec-cuoi">Tiệc cưới</button>
+  <button class="filter-btn" data-cat="ban-be">Bạn bè</button>
+</div>
+
+<!-- Album Grid -->
+<div class="album-wrap">
+  <div class="masonry album-masonry" id="albumGrid"></div>
+  <p class="no-photos hidden" id="noPhotos">Không có ảnh trong danh mục này.</p>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox hidden" id="lightbox">
+  <div class="lb-bg" onclick="closeLB()"></div>
+  <button class="lb-close" onclick="closeLB()">✕</button>
+  <button class="lb-prev" onclick="lbNav(-1)">‹</button>
+  <button class="lb-next" onclick="lbNav(1)">›</button>
+  <div class="lb-inner">
+    <img id="lbImg" src="" alt="" />
+    <p id="lbCaption" class="lb-caption"></p>
+    <span class="lb-counter" id="lbCounter"></span>
+  </div>
+</div>
+
+<footer class="footer" style="margin-top:4rem">
+  <div class="footer-deco"></div>
+  <div class="footer-inner">
+    <p class="footer-names">Minh &amp; Linh</p>
+    <p class="footer-thanks">Cảm ơn bạn đã xem qua những khoảnh khắc đẹp của chúng tôi</p>
+    <p class="footer-made">Made with ❤ for our special day</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script>initAlbumPage();</script>
+</body>
+</html>
