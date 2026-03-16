@@ -38,7 +38,7 @@ const CONFIG = {
     {
       icon: "🥂",
       title: "Tiệc Vu Quy",
-      date: "Chủ Nhật, 15/06/2026",
+      date: "Chủ Nhật, 10/05/2026",
       time: "11:00 – 14:00",
       location: "Nhà hàng Phố Đôi",
       address: "737 Xa Lộ Hà Nội, Phường Long Bình, Đồng Nai",
