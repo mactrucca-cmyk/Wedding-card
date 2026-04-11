@@ -101,7 +101,7 @@ function generateGalleryImages() {
 }
 
 function generateAlbumImages() {
-  const categories = ["dinh-hon", "anh-cuoi", "le-cuoi", "tiec-cuoi", "ban-be"];
+  const categories = ["dinh-hon", "anh-cuoi"];
   const unsplashIds = [
     ["photo-1519741497674-611481863552","photo-1511285560929-80b456fea0bc","photo-1529333166437-7750a6dd5a70","photo-1606216794079-73f4f9f6ce3b","photo-1513278974582-3e1b4a4fa21e","photo-1465495976277-4387d4b0b4c6","photo-1525258946800-90d1948cbcb4","photo-1485872299829-c673f5194813","photo-1587271339318-2e78e9420e69","photo-1546032996-6dfacbacbf3f"],
     ["photo-1544078751-58fee2d8a03b","photo-1469371670807-013ccf25f16a","photo-1511988617509-a57c8a288659","photo-1558618666-fcd25c85cd64","photo-1523438885200-e635ba2c371e","photo-1490730141103-6cac27aaab94","photo-1522673607200-164d1b6ce486","photo-1519225421980-715cb0215aed","photo-1525302843855-8a72bce17442","photo-1507003211169-0a1dd7228f2d"],
