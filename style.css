@@ -443,7 +443,7 @@ textarea:focus, input:focus, select:focus {
   background: radial-gradient(circle, var(--orange-pale), transparent 70%);
 }
 .family-side {
-  font-size: 0.72rem;
+  font-size: 1.2rem;
   letter-spacing: 0.35em;
   text-transform: uppercase;
   color: var(--orange);
