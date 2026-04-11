@@ -21,13 +21,11 @@ const CONFIG = {
   weddingDateDisplay: "10 · 05 · 2026",
 
   groomFamily: {
-    title: "Nhà ",
     father: "Lâm Tứ Thông",
     mother: "Phan Thị Liên Hoa",
     address: "Trần Hưng Đạo, Phường Phú Xuân, thành phố Huế"
   },
   brideFamily: {
-    title: "Nhà Gái",
     father: "Đoàn Minh Sơn",
     mother: "Đoàn Thị Tý",
     address: "Tổ 29 khu phố Vườn Dừa, Phường Phước Tân, Đồng Nai"
@@ -252,7 +250,7 @@ function initFamily() {
   const cols = document.getElementById("familyCols");
   if (!cols) return;
   [CONFIG.groomFamily, CONFIG.brideFamily].forEach(fam => {
-    const label = fam === CONFIG.groomFamily ? ;
+    const label = fam === CONFIG.groomFamily ? "Nhà Trai" : "Nhà Gái" ;
     cols.innerHTML += `
     <div class="family-card reveal">
       <p class="family-side">${label}</p>
