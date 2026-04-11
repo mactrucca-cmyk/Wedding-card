@@ -10,12 +10,12 @@ const CONFIG = {
   groomName: "Lâm Tứ Nhật",
   groomShort: "Nhật",
   groomBio: "Chàng trai với nụ cười ấm áp và trái tim chân thành. Anh luôn biết cách làm cho người xung quanh cảm thấy được yêu thương và trân trọng.",
-  groomPhoto: "images/nhat.jpg",
+  groomPhoto: "images/BEN_0690.jpg",
 
   brideName: "Đoàn Thị Tú Trinh",
   brideShort: "Trinh",
   brideBio: "Cô gái với đôi mắt sáng và tâm hồn nhân hậu. Nàng mang đến ánh sáng và hạnh phúc cho tất cả những ai được quen biết.",
-  bridePhoto: "images/trinh.jpg",
+  bridePhoto: "images/BEN_0610.jpg",
 
   weddingDate: "2026-05-10T10:00:00",
   weddingDateDisplay: "10 · 05 · 2026",
