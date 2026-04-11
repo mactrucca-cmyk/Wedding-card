@@ -252,7 +252,7 @@ function initFamily() {
   const cols = document.getElementById("familyCols");
   if (!cols) return;
   [CONFIG.groomFamily, CONFIG.brideFamily].forEach(fam => {
-    const label = fam === CONFIG.groomFamily ? "Nhà Trai" : "Nhà Gái";
+    const label = fam === CONFIG.groomFamily ? ;
     cols.innerHTML += `
     <div class="family-card reveal">
       <p class="family-side">${label}</p>
