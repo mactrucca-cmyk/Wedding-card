@@ -21,13 +21,13 @@ const CONFIG = {
   weddingDateDisplay: "10 · 05 · 2026",
 
   groomFamily: {
-     title: " "
+     title: " ",
     father: "Lâm Tứ Thông",
     mother: "Phan Thị Liên Hoa",
     address: "Trần Hưng Đạo, Phường Phú Xuân, thành phố Huế"
   },
   brideFamily: {
-      title: " "
+      title: " ",
     father: "Đoàn Minh Sơn",
     mother: "Đoàn Thị Tý",
     address: "Tổ 29 khu phố Vườn Dừa, Phường Phước Tân, Đồng Nai"
