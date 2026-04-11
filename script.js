@@ -9,12 +9,12 @@
 const CONFIG = {
   groomName: "Lâm Tứ Nhật",
   groomShort: "Nhật",
-  groomBio: "Chàng trai với nụ cười ấm áp và trái tim chân thành. Anh luôn biết cách làm cho người xung quanh cảm thấy được yêu thương và trân trọng.",
+  groomBio: "",
   groomPhoto: "images/BEN_0690.jpg",
 
   brideName: "Đoàn Thị Tú Trinh",
   brideShort: "Trinh",
-  brideBio: "Cô gái với đôi mắt sáng và tâm hồn nhân hậu. Nàng mang đến ánh sáng và hạnh phúc cho tất cả những ai được quen biết.",
+  brideBio: "",
   bridePhoto: "images/BEN_0610.jpg",
 
   weddingDate: "2026-05-10T10:00:00",
@@ -64,13 +64,13 @@ const CONFIG = {
       year: "2023",
       title: "Lời Cầu Hôn",
       desc: "hạnh phúc và gật đầu đồng ý.",
-      photo: "https://images.unsplash.com/photo-1544078751-58fee2d8a03b?w=600&q=80"
+      photo: "images/01.jpg"
     },
     {
       year: "2025",
       title: "Ngày Trọng Đại",
       desc: "Và hôm nay, chúng tôi cùng nhau bước vào một chương mới của cuộc đời. Trước sự chứng kiến của gia đình và những người thân yêu, chúng tôi xin phép được kết đôi và cùng nhau viết tiếp câu chuyện tình yêu này mãi mãi.",
-      photo: "https://images.unsplash.com/photo-1519741497674-611481863552?w=600&q=80"
+      photo: "images/03.jpg"
     }
   ],
 
