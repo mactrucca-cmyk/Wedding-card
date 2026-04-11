@@ -70,7 +70,7 @@ const CONFIG = {
       year: "2025",
       title: "Ngày Trọng Đại",
       desc: "Và hôm nay, chúng tôi cùng nhau bước vào một chương mới của cuộc đời. Trước sự chứng kiến của gia đình và những người thân yêu, chúng tôi xin phép được kết đôi và cùng nhau viết tiếp câu chuyện tình yêu này mãi mãi.",
-      photo: "images/03.jpg"
+      photo: "images/02.jpg"
     }
   ],
 
@@ -84,18 +84,18 @@ const CONFIG = {
 /* ---- Generate placeholder gallery images ---- */
 function generateGalleryImages() {
   const photos = [
-    { src: "images/DSCF5301.JPG", cap: "Khoảnh khắc hạnh phúc" },
-    { src: "images/DSCF5325.jpg", cap: "Đôi uyên ương" },
-    { src: "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=600&q=75", cap: "Tình yêu đẹp" },
-    { src: "https://images.unsplash.com/photo-1606216794079-73f4f9f6ce3b?w=600&q=75", cap: "Hoa cưới" },
-    { src: "https://images.unsplash.com/photo-1513278974582-3e1b4a4fa21e?w=600&q=75", cap: "Lễ cưới" },
-    { src: "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=600&q=75", cap: "Nụ hôn đầu" },
-    { src: "https://images.unsplash.com/photo-1525258946800-90d1948cbcb4?w=600&q=75", cap: "Hạnh phúc mãi mãi" },
-    { src: "https://images.unsplash.com/photo-1485872299829-c673f5194813?w=600&q=75", cap: "Buổi tối lãng mạn" },
-    { src: "https://images.unsplash.com/photo-1587271339318-2e78e9420e69?w=600&q=75", cap: "Trao nhẫn" },
-    { src: "https://images.unsplash.com/photo-1546032996-6dfacbacbf3f?w=600&q=75", cap: "Gia đình hạnh phúc" },
-    { src: "https://images.unsplash.com/photo-1544078751-58fee2d8a03b?w=600&q=75", cap: "Cầu hôn" },
-    { src: "https://images.unsplash.com/photo-1469371670807-013ccf25f16a?w=600&q=75", cap: "Tiệc cưới" },
+    { src: "them ten anh", cap: "Khoảnh khắc hạnh phúc" },
+    { src: "", cap: "Đôi uyên ương" },
+    { src: "", cap: "Tình yêu đẹp" },
+    { src: "", cap: "Hoa cưới" },
+    { src: "", cap: "Lễ cưới" },
+    { src: "", cap: "Nụ hôn đầu" },
+    { src: "", cap: "Hạnh phúc mãi mãi" },
+    { src: "", cap: "Buổi tối lãng mạn" },
+    { src: "", cap: "Trao nhẫn" },
+    { src: "", cap: "Gia đình hạnh phúc" },
+    { src: "", cap: "Cầu hôn" },
+    { src: "", cap: "Tiệc cưới" },
   ];
   return photos;
 }
@@ -103,8 +103,8 @@ function generateGalleryImages() {
 function generateAlbumImages() {
   const categories = ["dinh-hon", "anh-cuoi"];
   const unsplashIds = [
-    ["images/DSCF6721.jpg","photo-1511285560929-80b456fea0bc","photo-1529333166437-7750a6dd5a70","photo-1606216794079-73f4f9f6ce3b","photo-1513278974582-3e1b4a4fa21e","photo-1465495976277-4387d4b0b4c6","photo-1525258946800-90d1948cbcb4","photo-1485872299829-c673f5194813","photo-1587271339318-2e78e9420e69","photo-1546032996-6dfacbacbf3f"],
-    ["photo-1544078751-58fee2d8a03b","photo-1469371670807-013ccf25f16a","photo-1511988617509-a57c8a288659","photo-1558618666-fcd25c85cd64","photo-1523438885200-e635ba2c371e","photo-1490730141103-6cac27aaab94","photo-1522673607200-164d1b6ce486","photo-1519225421980-715cb0215aed","photo-1525302843855-8a72bce17442","photo-1507003211169-0a1dd7228f2d"],
+    ["them ten anh, "],
+    [""],
   ];
   const captions = ["Khoảnh khắc hạnh phúc","Tình yêu đôi mình","Nụ cười hạnh phúc","Yêu mãi mãi","Bên nhau trọn đời","Hành trình yêu","Kỷ niệm đẹp","Chúng mình và nhau","Một ngày đặc biệt","Hạnh phúc vỡ oà"];
 
@@ -112,7 +112,7 @@ function generateAlbumImages() {
   categories.forEach((cat, ci) => {
     unsplashIds[ci].forEach((id, ii) => {
       all.push({
-        src: `https://images.unsplash.com/${id}?w=600&q=75`,
+        src: `images/`,
         cat,
         cap: captions[ii % captions.length]
       });
