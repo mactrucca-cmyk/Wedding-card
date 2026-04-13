@@ -59,7 +59,7 @@ const CONFIG = {
   // ── Google Apps Script URL để lưu RSVP vào Google Sheet ──
   // Hướng dẫn tạo: xem README.md hoặc phần cuối file này
   // Sau khi có URL, dán vào đây:
-  googleScriptUrl: "",   // VD: "https://script.google.com/macros/s/AKfy.../exec"
+  googleScriptUrl: "https://script.google.com/macros/library/d/1bnAqlAllDB_pDXzh4KZUmL-l50deZvfoX26z8E4rkj0v6ZifbDoaiuu0/1",   // VD: "https://script.google.com/macros/s/AKfy.../exec"
 
   timeline: [
     {
