@@ -13,10 +13,9 @@
 </head>
 <body>
 
-<!-- Particle Canvas for hearts & petals -->
 <canvas id="particleCanvas"></canvas>
 
-<!-- Floating Music Player -->
+<!-- Music Player -->
 <div class="music-player" id="musicPlayer">
   <button class="music-btn" id="musicToggle" aria-label="Phát/Dừng nhạc">
     <svg class="ic-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
@@ -24,9 +23,7 @@
   </button>
   <div class="music-meta">
     <span>♫ Nhạc lãng mạn</span>
-    <div class="music-bars" id="musicBars">
-      <b></b><b></b><b></b><b></b><b></b>
-    </div>
+    <div class="music-bars" id="musicBars"><b></b><b></b><b></b><b></b><b></b></div>
   </div>
 </div>
 <audio id="bgMusic" loop preload="none">
@@ -39,47 +36,39 @@
   <div class="hero-veil"></div>
   <div class="hero-body">
 
-    <!-- LOGO + TÊN: layout 3 cột ngang -->
+    <!-- LOGO + TÊN: 3 cột -->
     <div class="hero-identity anim-up">
-      <!-- Tên chú rể bên trái -->
       <div class="hero-name-side hero-name-left">
         <span class="hero-name-label">Chú Rể</span>
         <span class="hero-name-text" id="heroGroom">Nhật</span>
       </div>
-
-      <!-- Logo giữa -->
+      <!-- Logo được inject bởi JS -->
       <div class="hero-logo-wrap">
-        <div class="hero-logo-ring">
-          <img
-            class="hero-logo-img"
-            src="images/logo.png"
-            alt="N & T Logo"
-            onerror="this.closest('.hero-logo-ring').style.display='none';document.getElementById('heroLogoBg').style.display='block'"
-          />
-          <!-- Fallback SVG nếu không có file logo.png -->
-          <svg id="heroLogoBg" class="hero-logo-svg hidden" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="100" cy="100" r="96" fill="none" stroke="#c9a96e" stroke-width="1.2" opacity="0.6"/>
-            <text x="100" y="80" text-anchor="middle" font-family="Playfair Display, serif" font-size="62" font-weight="400" fill="#c9a96e" opacity="0.9">N</text>
-            <text x="100" y="115" text-anchor="middle" font-family="Playfair Display, serif" font-size="36" font-weight="300" fill="#c9a96e" opacity="0.7">&amp;</text>
-            <text x="100" y="165" text-anchor="middle" font-family="Playfair Display, serif" font-size="62" font-weight="400" fill="#c9a96e" opacity="0.9">T</text>
-          </svg>
-        </div>
+        <div class="hero-logo-ring" id="heroLogoRing"></div>
       </div>
-
-      <!-- Tên cô dâu bên phải -->
       <div class="hero-name-side hero-name-right">
         <span class="hero-name-label">Cô Dâu</span>
         <span class="hero-name-text" id="heroBride">Trinh</span>
       </div>
     </div>
 
-    <!-- Đường kẻ + ngày -->
-    <div class="hero-sep anim-up d1"><span></span><em>✦</em><span></span></div>
+    <!-- Ngày cưới – TO & ĐẬM, đặt trước separator -->
     <p class="hero-date anim-up d1" id="heroDate">10 · 05 · 2026</p>
+    <div class="hero-sep anim-up d1"><span></span><em>✦</em><span></span></div>
 
-    <!-- Lời mời + tên khách -->
+    <!-- Lời mời – TO & ĐẬM -->
     <p class="hero-eyebrow-invite anim-up d2">Trân trọng kính mời</p>
+
+    <!-- Tên khách – chỉ hiện khi ?guest= -->
     <div class="guest-greeting anim-up d2" id="guestGreeting"></div>
+
+    <!-- QR link khách – chỉ hiện khi ?guest=, thay thế share/guestLink -->
+    <div class="hero-guest-qr hidden" id="heroGuestQr">
+      <div class="hgq-box">
+        <div id="hgqQrBox"></div>
+        <p>Chia sẻ thiệp này</p>
+      </div>
+    </div>
 
     <p class="hero-quote anim-up d3">"Hành trình của hai trái tim hòa làm một,<br>bắt đầu từ hôm nay và kéo dài mãi mãi"</p>
     <button class="btn-open anim-up d4" onclick="scrollTo('loveStory')">
@@ -175,10 +164,11 @@
     <header class="sec-head">
       <p class="eyebrow">RSVP</p>
       <h2>Xác Nhận Tham Dự</h2>
-      <p class="sub">Vui lòng xác nhận trước ngày 01/06/2025</p>
+      <p class="sub">Vui lòng xác nhận để chúng tôi chuẩn bị tốt nhất cho bạn</p>
     </header>
     <div class="rsvp-box">
       <form id="rsvpForm" class="rsvp-form" onsubmit="submitRSVP(event)">
+
         <div class="form-row2">
           <div class="fg">
             <label>Họ và tên *</label>
@@ -189,50 +179,103 @@
             <input type="tel" id="rPhone" placeholder="0912 345 678" />
           </div>
         </div>
+
+        <!-- Chọn tiệc – radio card -->
         <div class="fg">
-          <label>Số người tham dự</label>
-          <select id="rGuests">
-            <option value="1">1 người</option>
-            <option value="2">2 người</option>
-            <option value="3">3 người</option>
-            <option value="4">4 người</option>
-            <option value="5">5 người trở lên</option>
-          </select>
+          <label class="fg-label-block">Tham dự tiệc *</label>
+          <div class="event-choice-row">
+            <label class="ecc-opt">
+              <input type="radio" name="rEvent" value="Tiệc Vu Quy (10/05/2026)" />
+              <span class="ecc-card">
+                <span class="ecc-icon">🥂</span>
+                <span class="ecc-name">Tiệc Vu Quy</span>
+                <span class="ecc-date">CN · 10/05/2026</span>
+              </span>
+            </label>
+            <label class="ecc-opt">
+              <input type="radio" name="rEvent" value="Tiệc Thành Hôn (14/06/2026)" />
+              <span class="ecc-card">
+                <span class="ecc-icon">🎊</span>
+                <span class="ecc-name">Tiệc Thành Hôn</span>
+                <span class="ecc-date">CN · 14/06/2026</span>
+              </span>
+            </label>
+            <label class="ecc-opt">
+              <input type="radio" name="rEvent" value="Cả hai tiệc" checked />
+              <span class="ecc-card">
+                <span class="ecc-icon">🎉</span>
+                <span class="ecc-name">Cả hai tiệc</span>
+                <span class="ecc-date">10/05 &amp; 14/06</span>
+              </span>
+            </label>
+          </div>
         </div>
+
+        <div class="form-row2">
+          <div class="fg">
+            <label>Số người tham dự</label>
+            <select id="rGuests">
+              <option value="1">1 người</option>
+              <option value="2">2 người</option>
+              <option value="3">3 người</option>
+              <option value="4">4 người</option>
+              <option value="5">5 người trở lên</option>
+            </select>
+          </div>
+          <div class="fg">
+            <label>Xác nhận</label>
+            <select id="rAttend">
+              <option value="co">✅ Có, tôi sẽ tham dự</option>
+              <option value="khong">❌ Rất tiếc, không thể tham dự</option>
+            </select>
+          </div>
+        </div>
+
         <div class="fg">
           <label>Lời chúc mừng</label>
-          <textarea id="rMsg" rows="4" placeholder="Gửi lời chúc tới cô dâu và chú rể..."></textarea>
+          <textarea id="rMsg" rows="3" placeholder="Gửi lời chúc tới cô dâu và chú rể..."></textarea>
         </div>
-        <button type="submit" class="btn-submit">Gửi Xác Nhận ❤</button>
+
+        <!-- Ghi chú Google Sheet -->
+        <div class="rsvp-sheet-note" id="rsvpSheetNote">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0;width:18px;height:18px;color:var(--orange)"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          <span>Phản hồi sẽ được gửi vào <strong>Google Sheets</strong>. Điền <code>googleScriptUrl</code> trong <code>script.js</code> để kích hoạt.</span>
+        </div>
+
+        <button type="submit" class="btn-submit" id="rsvpSubmitBtn">
+          <span id="rsvpBtnTxt">Gửi Xác Nhận ❤</span>
+          <span class="rsvp-dots hidden" id="rsvpDots"><span></span><span></span><span></span></span>
+        </button>
       </form>
+
       <div class="rsvp-ok hidden" id="rsvpOk">
         <div class="ok-icon">✓</div>
         <h3>Cảm ơn bạn rất nhiều!</h3>
-        <p>Chúng tôi rất mong được gặp bạn trong ngày trọng đại.</p>
+        <p id="rsvpOkMsg">Chúng tôi rất mong được gặp bạn trong ngày trọng đại.</p>
         <button onclick="resetRSVP()" class="btn-ghost" style="margin-top:1rem">Thêm khách khác</button>
       </div>
+
       <div id="rsvpGuestList" class="rsvp-guests"></div>
     </div>
   </div>
 </section>
 
-<!-- ===================== TẠO LINK KHÁCH MỜI ===================== -->
-<section class="page-section" id="guestLink">
+<!-- ===================== TẠO LINK MỜI KHÁCH (chủ thiệp thấy) ===================== -->
+<section class="page-section owner-only" id="guestLink">
   <div class="wrap">
     <header class="sec-head">
       <p class="eyebrow">Gửi Thiệp</p>
       <h2>Tạo Link Mời Khách</h2>
-      <p class="sub">Nhập tên khách để tạo link thiệp cưới cá nhân hoá — bấm gửi qua Zalo, Facebook hoặc sao chép</p>
+      <p class="sub">Nhập tên khách để tạo link thiệp cưới cá nhân hoá</p>
     </header>
     <div class="guest-tool-card">
       <div class="guest-tool-input-row">
         <div class="guest-tool-field">
           <label for="guestNameInput">Tên khách mời</label>
-          <input type="text" id="guestNameInput" placeholder="VD: Anh Minh, Gia đình chú Hùng..." maxlength="60" />
+          <input type="text" id="guestNameInput" placeholder="VD: Anh Minh, Gia đình chú Hùng…" maxlength="60" />
         </div>
         <button class="btn-gen" onclick="generateGuestLink()">Tạo Link →</button>
       </div>
-      <!-- Result -->
       <div class="guest-link-result hidden" id="guestLinkResult">
         <div class="glr-preview" id="glrPreview"></div>
         <div class="glr-url-row">
@@ -243,16 +286,13 @@
         </div>
         <div class="glr-share-row">
           <button class="glr-btn fb" onclick="shareGuestFB()">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
-            Facebook
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>Facebook
           </button>
           <button class="glr-btn ms" onclick="shareGuestMessenger()">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.145 2 11.243c0 2.936 1.32 5.56 3.404 7.338v3.419l3.19-1.755c.853.237 1.756.365 2.693.365 5.523 0 10-4.145 10-9.243S17.523 2 12 2zm1.03 12.423l-2.55-2.718-4.98 2.718 5.48-5.818 2.617 2.718 4.912-2.718-5.48 5.818z"/></svg>
-            Messenger
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.145 2 11.243c0 2.936 1.32 5.56 3.404 7.338v3.419l3.19-1.755c.853.237 1.756.365 2.693.365 5.523 0 10-4.145 10-9.243S17.523 2 12 2zm1.03 12.423l-2.55-2.718-4.98 2.718 5.48-5.818 2.617 2.718 4.912-2.718-5.48 5.818z"/></svg>Messenger
           </button>
           <button class="glr-btn zl" onclick="shareGuestZalo()">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm.5 14.5h-1v-6h1v6zm0-8h-1V7h1v1.5z"/></svg>
-            Zalo
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm.5 14.5h-1v-6h1v6zm0-8h-1V7h1v1.5z"/></svg>Zalo
           </button>
         </div>
         <div class="glr-qr" id="glrQr"></div>
@@ -261,8 +301,8 @@
   </div>
 </section>
 
-<!-- ===================== SHARE ===================== -->
-<section class="page-section" id="share">
+<!-- ===================== SHARE (chủ thiệp thấy) ===================== -->
+<section class="page-section bg-cream owner-only" id="share">
   <div class="wrap">
     <header class="sec-head">
       <p class="eyebrow">Share</p>
@@ -272,20 +312,16 @@
     <div class="share-layout">
       <div class="share-btns">
         <button class="sb fb" onclick="shareToFB()">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
-          Facebook
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>Facebook
         </button>
         <button class="sb ms" onclick="shareToMessenger()">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.145 2 11.243c0 2.936 1.32 5.56 3.404 7.338v3.419l3.19-1.755c.853.237 1.756.365 2.693.365 5.523 0 10-4.145 10-9.243S17.523 2 12 2zm1.03 12.423l-2.55-2.718-4.98 2.718 5.48-5.818 2.617 2.718 4.912-2.718-5.48 5.818z"/></svg>
-          Messenger
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.145 2 11.243c0 2.936 1.32 5.56 3.404 7.338v3.419l3.19-1.755c.853.237 1.756.365 2.693.365 5.523 0 10-4.145 10-9.243S17.523 2 12 2zm1.03 12.423l-2.55-2.718-4.98 2.718 5.48-5.818 2.617 2.718 4.912-2.718-5.48 5.818z"/></svg>Messenger
         </button>
         <button class="sb zl" onclick="shareToZalo()">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm.5 14.5h-1v-6h1v6zm0-8h-1V7h1v1.5z"/></svg>
-          Zalo
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm.5 14.5h-1v-6h1v6zm0-8h-1V7h1v1.5z"/></svg>Zalo
         </button>
         <button class="sb cp" onclick="copyLink()">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-          Sao chép
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>Sao chép
         </button>
       </div>
       <div class="qr-card">
@@ -301,15 +337,14 @@
   <div class="footer-deco"></div>
   <div class="footer-inner">
     <p class="footer-names" id="footerNames">Nhật &amp; Trinh</p>
-    <p class="footer-wedding-date" id="footerDate">10 · 05 · 2025</p>
+    <p class="footer-wedding-date" id="footerDate">10 · 05 · 2026</p>
     <div class="footer-rule"><span></span><em>❤</em><span></span></div>
     <p class="footer-thanks">Cảm ơn bạn đã đến chung vui cùng chúng tôi.<br>Sự hiện diện của bạn là món quà quý giá nhất với chúng tôi.</p>
-    <p class="footer-tel" id="footerTel">Liên hệ: <a href="tel:0912345678">0912 345 678</a></p>
+    <p class="footer-tel" id="footerTel">Liên hệ: <a href="tel:03664324416">0366 432 416</a></p>
     <p class="footer-made">Made with ❤ for our special day</p>
   </div>
 </footer>
 
-<!-- Lightbox -->
 <div class="lightbox hidden" id="lightbox">
   <div class="lb-bg" onclick="closeLB()"></div>
   <button class="lb-close" onclick="closeLB()">✕</button>
@@ -321,7 +356,6 @@
   </div>
 </div>
 
-<!-- Toast notification -->
 <div class="toast hidden" id="toast"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
