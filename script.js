@@ -8,12 +8,12 @@
 ============================================================ */
 const CONFIG = {
   groomName:  "Lâm Tứ Nhật",
-  groomShort: "Nhật",
+  groomShort: "Tứ Nhật",
   groomBio:   "",
   groomPhoto: "images/BEN_0690.jpg",
 
   brideName:  "Đoàn Thị Tú Trinh",
-  brideShort: "Trinh",
+  brideShort: "Tú Trinh",
   brideBio:   "",
   bridePhoto: "images/BEN_0610.jpg",
 
@@ -63,8 +63,8 @@ const CONFIG = {
 
   timeline: [
     {
-      year: "2023", title: "Lời Cầu Hôn",
-      desc: "Một khoảnh khắc thiêng liêng, anh quỳ xuống với trái tim đầy yêu thương. Em đã gật đầu đồng ý trong niềm hạnh phúc vỡ oà.",
+      year: "2024", title: "Lời Cầu Hôn",
+      desc: "Một khoảnh khắc thiêng liêng, với trái tim đầy yêu thương.",
       photo: "images/01.jpg"
     },
     {
