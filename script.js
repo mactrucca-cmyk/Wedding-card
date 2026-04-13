@@ -196,7 +196,7 @@ function initGuestMode() {
     const name = decodeURIComponent(guest);
     const greetEl = document.getElementById("guestGreeting");
     if (greetEl) {
-      greetEl.textContent = `🎉 ${name}`;
+      greetEl.textContent = `${name}`;
       greetEl.style.display = "inline-block";
     }
 
