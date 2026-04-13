@@ -4,8 +4,32 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title id="pageTitle">Thiệp Cưới – Nhật &amp; Trinh</title>
-  <meta property="og:title" content="Thiệp Cưới – Nhật & Trinh" />
-  <meta property="og:description" content="Trân trọng kính mời bạn tới dự lễ cưới của chúng tôi" />
+
+  <!-- ═══ OPEN GRAPH – preview khi chia sẻ Facebook, Zalo, iMessage ═══ -->
+  <!-- og:image PHẢI là URL tuyệt đối khi deploy lên hosting -->
+  <!-- Thay YOUR_DOMAIN bằng domain thật, VD: https://nhat-trinh.netlify.app -->
+  <meta property="og:url"          content="https://YOUR_DOMAIN/index.html" />
+  <meta property="og:type"         content="website" />
+  <meta property="og:title"        content="💍 Thiệp Cưới – Nhật &amp; Trinh" />
+  <meta property="og:description"  content="Trân trọng kính mời bạn đến chung vui trong ngày trọng đại của chúng tôi · 10 · 05 · 2026" />
+  <meta property="og:image"        content="https://YOUR_DOMAIN/og-image.jpg" />
+  <meta property="og:image:width"  content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt"    content="Thiệp cưới Nhật & Trinh – 10/05/2026" />
+  <meta property="og:locale"       content="vi_VN" />
+  <meta property="og:site_name"    content="Thiệp Cưới Nhật &amp; Trinh" />
+
+  <!-- ═══ TWITTER / X CARD ═══ -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="💍 Thiệp Cưới – Nhật &amp; Trinh" />
+  <meta name="twitter:description" content="Trân trọng kính mời bạn đến chung vui · 10 · 05 · 2026" />
+  <meta name="twitter:image"       content="https://YOUR_DOMAIN/og-image.jpg" />
+
+  <!-- ═══ ZALO / MESSENGER dùng OG tags ở trên ═══ -->
+
+  <!-- SEO -->
+  <meta name="description" content="Thiệp cưới online của Nhật &amp; Trinh – 10/05/2026. Trân trọng kính mời." />
+  <meta name="theme-color" content="#F7A36A" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -57,10 +81,18 @@
     <div class="hero-sep anim-up d1"><span></span><em>✦</em><span></span></div>
 
     <!-- Lời mời – TO & ĐẬM -->
-    <p class="hero-eyebrow-invite anim-up d2">TRÂN TRỌNG KÍNH MỜI</p>
+    <p class="hero-eyebrow-invite anim-up d2">Trân trọng kính mời</p>
 
     <!-- Tên khách – chỉ hiện khi ?guest= -->
     <div class="guest-greeting anim-up d2" id="guestGreeting"></div>
+
+    <!-- QR link khách – chỉ hiện khi ?guest=, thay thế share/guestLink -->
+    <div class="hero-guest-qr hidden" id="heroGuestQr">
+      <div class="hgq-box">
+        <div id="hgqQrBox"></div>
+        <p>Chia sẻ thiệp này</p>
+      </div>
+    </div>
 
     <p class="hero-quote anim-up d3">"Hành trình của hai trái tim hòa làm một,<br>bắt đầu từ hôm nay và kéo dài mãi mãi"</p>
     <button class="btn-open anim-up d4" onclick="scrollTo('loveStory')">
@@ -229,6 +261,10 @@
         </div>
 
         <!-- Ghi chú Google Sheet -->
+        <div class="rsvp-sheet-note" id="rsvpSheetNote">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="flex-shrink:0;width:18px;height:18px;color:var(--orange)"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          <span>Phản hồi sẽ được gửi vào <strong>Google Sheets</strong>. Điền <code>googleScriptUrl</code> trong <code>script.js</code> để kích hoạt.</span>
+        </div>
 
         <button type="submit" class="btn-submit" id="rsvpSubmitBtn">
           <span id="rsvpBtnTxt">Gửi Xác Nhận ❤</span>
@@ -246,13 +282,6 @@
       <div id="rsvpGuestList" class="rsvp-guests"></div>
     </div>
   </div>
-      <!-- QR link khách – chỉ hiện khi ?guest=, thay thế share/guestLink -->
-    <div class="hero-guest-qr hidden" id="heroGuestQr">
-      <div class="hgq-box">
-        <div id="hgqQrBox"></div>
-        <p>Chia sẻ thiệp này</p>
-      </div>
-    </div>
 </section>
 
 <!-- ===================== TẠO LINK MỜI KHÁCH (chủ thiệp thấy) ===================== -->
