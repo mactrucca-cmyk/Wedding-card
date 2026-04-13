@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=1200"/>
+  <title>OG Image Preview – Nhật &amp; Trinh</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Cormorant+Garamond:ital,wght@0,300;1,300;1,400&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    /* ── Canvas chuẩn 1200×630 (tỉ lệ OG image) ── */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html, body { width:1200px; height:630px; overflow:hidden; }
+
+    .card {
+      width: 1200px;
+      height: 630px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+    }
+
+    /* ── Background: ảnh cưới mờ + overlay ── */
+    .card-bg {
+      position: absolute; inset: 0;
+      background:
+        url('images/BEN_0610.jpg') center/cover no-repeat,
+        url('https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&q=80') center/cover no-repeat;
+      filter: brightness(0.55) saturate(1.1);
+    }
+
+    /* Gradient overlay: navy xanh nhẹ → cam pastel */
+    .card-veil {
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        135deg,
+        rgba(10, 20, 45, 0.82) 0%,
+        rgba(30, 15, 5, 0.72) 50%,
+        rgba(180, 90, 20, 0.55) 100%
+      );
+    }
+
+    /* Viền trang trí bên trong */
+    .card-border {
+      position: absolute;
+      inset: 28px;
+      border: 1px solid rgba(201, 169, 110, 0.35);
+      pointer-events: none;
+    }
+    .card-border::before {
+      content: '';
+      position: absolute;
+      inset: 8px;
+      border: 1px solid rgba(201, 169, 110, 0.15);
+    }
+
+    /* Góc trang trí */
+    .corner {
+      position: absolute;
+      width: 48px; height: 48px;
+      border-color: rgba(201,169,110,0.65);
+      border-style: solid;
+    }
+    .corner-tl { top:38px; left:38px; border-width:2px 0 0 2px; }
+    .corner-tr { top:38px; right:38px; border-width:2px 2px 0 0; }
+    .corner-bl { bottom:38px; left:38px; border-width:0 0 2px 2px; }
+    .corner-br { bottom:38px; right:38px; border-width:0 2px 2px 0; }
+
+    /* Nội dung giữa */
+    .card-body {
+      position: relative; z-index: 10;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      padding: 0 60px;
+      width: 100%;
+    }
+
+    /* "Trân trọng kính mời" */
+    .c-eyebrow {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 22px;
+      font-weight: 300;
+      letter-spacing: 0.18em;
+      color: rgba(247, 190, 130, 0.9);
+      margin-bottom: 18px;
+    }
+
+    /* Logo + Tên layout 3 cột */
+    .c-identity {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      margin-bottom: 20px;
+    }
+
+    /* Tên cô dâu / chú rể */
+    .c-name-side {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    .c-name-label {
+      font-size: 11px;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: rgba(201,169,110,0.75);
+      font-weight: 500;
+    }
+    .c-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 80px;
+      font-weight: 300;
+      color: #fff;
+      line-height: 1;
+      text-shadow: 0 4px 32px rgba(0,0,0,0.5);
+      letter-spacing: -0.01em;
+    }
+
+    /* Logo giữa */
+    .c-logo-ring {
+      width: 160px; height: 160px;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .c-logo-ring::before {
+      content: '';
+      position: absolute;
+      inset: -6px; border-radius: 50%;
+      border: 1px solid rgba(201,169,110,0.35);
+    }
+    .c-logo-ring::after {
+      content: '';
+      position: absolute;
+      inset: -14px; border-radius: 50%;
+      border: 1px solid rgba(201,169,110,0.18);
+    }
+    .c-logo-img {
+      width: 100%; height: 100%;
+      object-fit: contain; border-radius: 50%;
+      display: block;
+    }
+    /* Fallback SVG nếu không có logo.png */
+    .c-logo-svg {
+      width: 100%; height: 100%;
+    }
+
+    /* Ngày cưới */
+    .c-date {
+      font-family: 'Playfair Display', serif;
+      font-size: 30px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.22em;
+      margin-bottom: 12px;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+    }
+
+    /* Dải kẻ + kim cương */
+    .c-rule {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 14px;
+    }
+    .c-rule span {
+      display: block;
+      width: 140px; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(201,169,110,0.7), transparent);
+    }
+    .c-rule em {
+      color: rgba(201,169,110,0.85);
+      font-style: normal; font-size: 10px;
+    }
+
+    /* Câu quote */
+    .c-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 19px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.7);
+      letter-spacing: 0.04em;
+      line-height: 1.6;
+      margin-bottom: 18px;
+      max-width: 640px;
+    }
+
+    /* Địa điểm / sự kiện pills */
+    .c-events {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+    }
+    .c-event-pill {
+      background: rgba(247,163,106,0.18);
+      border: 1px solid rgba(247,163,106,0.4);
+      border-radius: 40px;
+      padding: 6px 20px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.85);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      display: flex; align-items: center; gap: 6px;
+    }
+
+    /* Tên khách (chỉ hiện khi có ?guest=) */
+    .c-guest {
+      display: none;
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-style: italic;
+      color: rgba(247,190,130,0.95);
+      margin-bottom: 14px;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    }
+
+    /* Watermark URL nhỏ góc dưới */
+    .c-url {
+      position: absolute;
+      bottom: 48px;
+      right: 60px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.1em;
+      z-index: 10;
+    }
+
+    /* Hoa trang trí SVG góc */
+    .deco-left, .deco-right {
+      position: absolute;
+      bottom: 0;
+      width: 220px; height: 220px;
+      opacity: 0.22;
+      pointer-events: none;
+      z-index: 5;
+    }
+    .deco-left  { left: -20px; transform-origin: bottom left; }
+    .deco-right { right: -20px; transform: scaleX(-1); transform-origin: bottom right; }
+
+  </style>
+</head>
+<body>
+<div class="card" id="ogCard">
+
+  <!-- Background ảnh -->
+  <div class="card-bg" id="cardBg"></div>
+  <div class="card-veil"></div>
+
+  <!-- Viền trang trí -->
+  <div class="card-border"></div>
+  <div class="corner corner-tl"></div>
+  <div class="corner corner-tr"></div>
+  <div class="corner corner-bl"></div>
+  <div class="corner corner-br"></div>
+
+  <!-- Hoa trang trí SVG (giống logo) -->
+  <svg class="deco-left" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" fill="none">
+    <path d="M80 190 C60 160, 10 130, 10 80 C10 40, 40 20, 70 30 C90 38, 105 60, 110 80 C115 60, 130 38, 150 30 C180 20, 200 45, 190 80 C175 130, 120 160, 80 190Z" stroke="#c9a96e" stroke-width="1"/>
+    <path d="M40 200 Q30 170 50 150 Q70 130 80 160 Q90 130 110 145 Q130 160 120 200" stroke="#c9a96e" stroke-width="0.8"/>
+    <path d="M10 180 Q5 155 25 140 Q45 125 55 155" stroke="#c9a96e" stroke-width="0.8"/>
+    <circle cx="80" cy="190" r="3" fill="#c9a96e" opacity="0.5"/>
+    <circle cx="40" cy="200" r="2" fill="#c9a96e" opacity="0.4"/>
+  </svg>
+  <svg class="deco-right" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" fill="none">
+    <path d="M80 190 C60 160, 10 130, 10 80 C10 40, 40 20, 70 30 C90 38, 105 60, 110 80 C115 60, 130 38, 150 30 C180 20, 200 45, 190 80 C175 130, 120 160, 80 190Z" stroke="#c9a96e" stroke-width="1"/>
+    <path d="M40 200 Q30 170 50 150 Q70 130 80 160 Q90 130 110 145 Q130 160 120 200" stroke="#c9a96e" stroke-width="0.8"/>
+    <path d="M10 180 Q5 155 25 140 Q45 125 55 155" stroke="#c9a96e" stroke-width="0.8"/>
+    <circle cx="80" cy="190" r="3" fill="#c9a96e" opacity="0.5"/>
+  </svg>
+
+  <!-- Nội dung -->
+  <div class="card-body">
+    <p class="c-eyebrow">Trân trọng kính mời</p>
+
+    <!-- Tên khách (JS inject nếu có ?guest=) -->
+    <p class="c-guest" id="cGuest"></p>
+
+    <!-- Logo + Tên -->
+    <div class="c-identity">
+      <div class="c-name-side">
+        <span class="c-name-label">Chú Rể</span>
+        <span class="c-name">Nhật</span>
+      </div>
+
+      <div class="c-logo-ring" id="cLogoRing">
+        <!-- Logo inject bởi JS -->
+      </div>
+
+      <div class="c-name-side">
+        <span class="c-name-label">Cô Dâu</span>
+        <span class="c-name">Trinh</span>
+      </div>
+    </div>
+
+    <!-- Ngày -->
+    <p class="c-date">10 · 05 · 2026</p>
+
+    <!-- Rule -->
+    <div class="c-rule">
+      <span></span><em>✦</em><span></span>
+    </div>
+
+    <!-- Quote -->
+    <p class="c-quote">"Hành trình của hai trái tim hòa làm một, bắt đầu từ hôm nay và kéo dài mãi mãi"</p>
+
+    <!-- Sự kiện pills -->
+    <div class="c-events">
+      <div class="c-event-pill">🥂 Tiệc Vu Quy · 10/05/2026</div>
+      <div class="c-event-pill">🎊 Tiệc Thành Hôn · 14/06/2026</div>
+    </div>
+  </div>
+
+  <!-- URL góc dưới -->
+  <p class="c-url" id="cUrl"></p>
+</div>
+
+<script>
+  // Đọc ?guest= từ URL nếu có
+  const params = new URLSearchParams(location.search);
+  const guest  = params.get("guest");
+  if (guest) {
+    const el = document.getElementById("cGuest");
+    if (el) { el.textContent = `🎉 ${decodeURIComponent(guest)}`; el.style.display = "block"; }
+  }
+
+  // URL hiển thị góc dưới
+  const urlEl = document.getElementById("cUrl");
+  if (urlEl) urlEl.textContent = location.hostname || "thiep-cuoi.netlify.app";
+
+  // Logo
+  const ring = document.getElementById("cLogoRing");
+  if (ring) {
+    const img = document.createElement("img");
+    img.className = "c-logo-img";
+    img.alt = "N & T";
+
+    // SVG fallback
+    const svg = document.createElementNS("http://www.w3.org/2000/svg","svg");
+    svg.setAttribute("viewBox","0 0 200 200");
+    svg.setAttribute("class","c-logo-svg");
+    svg.innerHTML = `
+      <circle cx="100" cy="100" r="94" fill="none" stroke="#c9a96e" stroke-width="1.2" opacity="0.55"/>
+      <text x="100" y="76"  text-anchor="middle" font-family="Playfair Display,serif" font-size="64" font-weight="400" fill="#c9a96e" opacity="0.9">N</text>
+      <text x="100" y="112" text-anchor="middle" font-family="Playfair Display,serif" font-size="34" font-weight="300" fill="#c9a96e" opacity="0.65">&amp;</text>
+      <text x="100" y="166" text-anchor="middle" font-family="Playfair Display,serif" font-size="64" font-weight="400" fill="#c9a96e" opacity="0.9">T</text>`;
+
+    img.onload  = () => svg.remove();
+    img.onerror = () => img.remove();
+    ring.appendChild(svg);
+    ring.appendChild(img);
+    img.src = "logo.png";
+  }
+</script>
+</body>
+</html>
