@@ -59,7 +59,7 @@ const CONFIG = {
 
   timeline: [
     {
-      year: "2024", title: "Lời Cầu Hôn",
+      year: "2025", title: "Lời Cầu Hôn",
       desc: "Một khoảnh khắc thiêng liêng, với trái tim đầy yêu thương.",
       photo: "images/02.jpg"
     },
