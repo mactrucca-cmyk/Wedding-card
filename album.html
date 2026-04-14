@@ -60,6 +60,21 @@
 </footer>
 
 <script src="script.js"></script>
-<script>initAlbumPage();</script>
+<script>
+  initAlbumPage();
+  initMusicPlayer();
+</script>
+  
+<div class="music-player" id="musicPlayer">
+  <button class="music-btn" id="musicToggle" aria-label="Phát/Dừng nhạc">
+    <svg class="ic-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+    <svg class="ic-pause hidden" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+  </button>
+  <div class="music-meta">
+    <span>♫ Nhạc lãng mạn</span>
+    <div class="music-bars" id="musicBars"><b></b><b></b><b></b><b></b><b></b></div>
+  </div>
+</div>
+<audio id="bgMusic" loop preload="none"></audio>
 </body>
 </html>
