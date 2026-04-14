@@ -61,12 +61,12 @@ const CONFIG = {
     {
       year: "2024", title: "Lời Cầu Hôn",
       desc: "Một khoảnh khắc thiêng liêng, với trái tim đầy yêu thương.",
-      photo: "images/01.jpg"
+      photo: "images/02.jpg"
     },
     {
       year: "2026", title: "Ngày Trọng Đại",
       desc: "Hôm nay, chúng tôi cùng nhau bước vào một chương mới của cuộc đời. Trước sự chứng kiến của gia đình và những người thân yêu, chúng tôi nguyện cùng nhau mãi mãi.",
-      photo: "images/02.jpg"
+      photo: "images/01.jpg"
     }
   ],
 
@@ -75,6 +75,7 @@ const CONFIG = {
     { src: "images/BEN_0690.jpg", cap: "Chú rể lịch lãm" },
     { src: "images/01.jpg",       cap: "Lời cầu hôn" },
     { src: "images/02.jpg",       cap: "Ngày trọng đại" },
+    { src: "https://drive.google.com/file/1ErDSCB3d8hUPOnhYHN9tgBkbM7msjM97", cat: "anh-cuoi",  cap: "Ảnh cưới đẹp" },
   ],
 
   albumImages: [
@@ -82,6 +83,7 @@ const CONFIG = {
     { src: "images/BEN_0690.jpg", cat: "anh-cuoi", cap: "Chú rể" },
     { src: "images/01.jpg",       cat: "dinh-hon", cap: "Cầu hôn" },
     { src: "images/02.jpg",       cat: "anh-cuoi", cap: "Ngày cưới" },
+    { src: "https://drive.google.com/file/1ErDSCB3d8hUPOnhYHN9tgBkbM7msjM97", cat: "anh-cuoi",  cap: "Ảnh cưới đẹp" },
   ]
 };
 
