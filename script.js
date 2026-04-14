@@ -77,9 +77,18 @@ const CONFIG = {
   gallery: [
     { src: "images/BEN_0610.jpg", cap: "Cô dâu xinh đẹp" },
     { src: "images/BEN_0690.jpg", cap: "Chú rể lịch lãm" },
-    { src: "images/01.jpg",       cap: "Lời cầu hôn" },
-    { src: "images/02.jpg",       cap: "Ngày trọng đại" },
-    // { src: "images/TEN_ANH.jpg", cap: "Chú thích" },
+    { src: "images/01.jpg"        },
+    { src: "images/02.jpg"        },
+    { src: "https://drive.google.com/uc?export=view&id=ID_ANH_1", cat: "anh-cuoi"   },
+    { src: "https://drive.google.com/uc?export=view&id=ID_ANH_2", cat: "dinh-hon"   },
+    { src: "https://drive.google.com/uc?export=view&id=ID_ANH_3", cat: "anh-cuoi"},
+    { src: "https://drive.google.com/uc?export=view&id=ID_ANH_4", cat: "anh-cuoi"},
+    { src: "https://drive.google.com/uc?export=view&id=ID_ANH_5", cat: "anh-cuoi"},
+    { src: "https://drive.google.com/uc?export=view&id=ID_ANH_1", cat: "anh-cuoi", },
+    { src: "https://drive.google.com/uc?export=view&id=ID_ANH_2", cat: "anh-cuoi"},
+    { src: "https://drive.google.com/uc?export=view&id=ID_ANH_3", cat: "anh-cuoi" },
+    { src: "https://drive.google.com/uc?export=view&id=ID_ANH_4", cat: "anh-cuoi" },
+    { src: "https://drive.google.com/uc?export=view&id=ID_ANH_5", cat: "anh-cuoi" },
   ],
 
   albumImages: [
