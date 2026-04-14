@@ -79,7 +79,7 @@ const CONFIG = {
     { src: "images/BEN_0690.jpg", cap: "Chú rể lịch lãm" },
     { src: "images/01.jpg"        },
     { src: "images/02.jpg"        },
-    { src: "https://drive.google.com/uc?export=view&id=ID_ANH_1", cat: "anh-cuoi"   },
+    { src: "https://drive.google.com/uc?export=view&id=1ErDSCB3d8hUPOnhYHN9tgBkbM7msjM97", cat: "anh-cuoi"   },
     { src: "https://drive.google.com/uc?export=view&id=ID_ANH_2", cat: "dinh-hon"   },
     { src: "https://drive.google.com/uc?export=view&id=ID_ANH_3", cat: "anh-cuoi"},
     { src: "https://drive.google.com/uc?export=view&id=ID_ANH_4", cat: "anh-cuoi"},
