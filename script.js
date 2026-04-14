@@ -8,12 +8,12 @@
 ============================================================ */
 const CONFIG = {
   groomName:  "Lâm Tứ Nhật",
-  groomShort: "Nhật",
+  groomShort: "Tứ Nhật",
   groomBio:   "",
   groomPhoto: "images/BEN_0690.jpg",
 
   brideName:  "Đoàn Thị Tú Trinh",
-  brideShort: "Trinh",
+  brideShort: "Tú Trinh",
   brideBio:   "",
   bridePhoto: "images/BEN_0610.jpg",
 
@@ -59,12 +59,12 @@ const CONFIG = {
   // ── Google Apps Script URL để lưu RSVP vào Google Sheet ──
   // Hướng dẫn tạo: xem README.md hoặc phần cuối file này
   // Sau khi có URL, dán vào đây:
-  googleScriptUrl: "",   // VD: "https://script.google.com/macros/s/AKfy.../exec"
+  googleScriptUrl: "https://script.google.com/macros/s/AKfycbz8A69TLoz5IoAAchTigESUXCmvhM3fh_8_sZ5jasNK9TWu4gbLhN1yscMdPERqZZvyHw/exec",   // VD: "https://script.google.com/macros/s/AKfy.../exec"
 
   timeline: [
     {
-      year: "2023", title: "Lời Cầu Hôn",
-      desc: "Một khoảnh khắc thiêng liêng, anh quỳ xuống với trái tim đầy yêu thương. Em đã gật đầu đồng ý trong niềm hạnh phúc vỡ oà.",
+      year: "2024", title: "Lời Cầu Hôn",
+      desc: "Một khoảnh khắc thiêng liêng, với trái tim đầy yêu thương.",
       photo: "images/01.jpg"
     },
     {
