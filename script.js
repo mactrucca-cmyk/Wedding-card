@@ -8,12 +8,12 @@
 ============================================================ */
 const CONFIG = {
   groomName:  "Lâm Tứ Nhật",
-  groomShort: "Tứ Nhật",
+  groomShort: "Nhật",
   groomBio:   "",
   groomPhoto: "images/BEN_0690.jpg",
 
   brideName:  "Đoàn Thị Tú Trinh",
-  brideShort: "Tú Trinh",
+  brideShort: "Trinh",
   brideBio:   "",
   bridePhoto: "images/BEN_0610.jpg",
 
@@ -59,12 +59,12 @@ const CONFIG = {
   // ── Google Apps Script URL để lưu RSVP vào Google Sheet ──
   // Hướng dẫn tạo: xem README.md hoặc phần cuối file này
   // Sau khi có URL, dán vào đây:
-  googleScriptUrl: "https://script.google.com/macros/s/AKfycbz8A69TLoz5IoAAchTigESUXCmvhM3fh_8_sZ5jasNK9TWu4gbLhN1yscMdPERqZZvyHw/exec",   // VD: "https://script.google.com/macros/s/AKfy.../exec"
+  googleScriptUrl: "",   // VD: "https://script.google.com/macros/s/AKfy.../exec"
 
   timeline: [
     {
-      year: "2024", title: "Lời Cầu Hôn",
-      desc: "Một khoảnh khắc thiêng liêng, với trái tim đầy yêu thương.",
+      year: "2023", title: "Lời Cầu Hôn",
+      desc: "Một khoảnh khắc thiêng liêng, anh quỳ xuống với trái tim đầy yêu thương. Em đã gật đầu đồng ý trong niềm hạnh phúc vỡ oà.",
       photo: "images/01.jpg"
     },
     {
@@ -77,18 +77,9 @@ const CONFIG = {
   gallery: [
     { src: "images/BEN_0610.jpg", cap: "Cô dâu xinh đẹp" },
     { src: "images/BEN_0690.jpg", cap: "Chú rể lịch lãm" },
-    { src: "images/01.jpg"        },
-    { src: "images/02.jpg"        },
-    { src: "https://drive.google.com/uc?export=view&id=1ErDSCB3d8hUPOnhYHN9tgBkbM7msjM97", cat: "anh-cuoi"   },
-    { src: "https://drive.google.com/uc?export=view&id=ID_ANH_2", cat: "dinh-hon"   },
-    { src: "https://drive.google.com/uc?export=view&id=ID_ANH_3", cat: "anh-cuoi"},
-    { src: "https://drive.google.com/uc?export=view&id=ID_ANH_4", cat: "anh-cuoi"},
-    { src: "https://drive.google.com/uc?export=view&id=ID_ANH_5", cat: "anh-cuoi"},
-    { src: "https://drive.google.com/uc?export=view&id=ID_ANH_1", cat: "anh-cuoi", },
-    { src: "https://drive.google.com/uc?export=view&id=ID_ANH_2", cat: "anh-cuoi"},
-    { src: "https://drive.google.com/uc?export=view&id=ID_ANH_3", cat: "anh-cuoi" },
-    { src: "https://drive.google.com/uc?export=view&id=ID_ANH_4", cat: "anh-cuoi" },
-    { src: "https://drive.google.com/uc?export=view&id=ID_ANH_5", cat: "anh-cuoi" },
+    { src: "images/01.jpg",       cap: "Lời cầu hôn" },
+    { src: "images/02.jpg",       cap: "Ngày trọng đại" },
+    // { src: "images/TEN_ANH.jpg", cap: "Chú thích" },
   ],
 
   albumImages: [
@@ -116,67 +107,26 @@ document.addEventListener("DOMContentLoaded", () => {
   _isGuestMode = new URLSearchParams(window.location.search).has("guest");
 
   initParticles();
-  function initMusicPlayer() {
-  const btn   = document.getElementById("musicToggle");
-  const audio = document.getElementById("bgMusic");
-  const bars  = document.getElementById("musicBars");
-  if (!btn || !audio) return;
+  initMusicPlayer();
 
-  audio.src  = CONFIG.musicFile;
-  audio.loop = true;
-
-  // Lưu vị trí nhạc vào sessionStorage để tiếp tục khi chuyển trang
-  const saved = sessionStorage.getItem("musicTime");
-  if (saved) audio.currentTime = parseFloat(saved);
-
-  // Lưu vị trí mỗi giây
-  setInterval(() => {
-    if (!audio.paused) sessionStorage.setItem("musicTime", audio.currentTime);
-  }, 1000);
-
-  function setPlaying(playing) {
-    if (playing) {
-      btn.querySelector(".ic-play").classList.add("hidden");
-      btn.querySelector(".ic-pause").classList.remove("hidden");
-      bars && bars.classList.add("playing");
-      sessionStorage.setItem("musicPlaying", "1");
-    } else {
-      btn.querySelector(".ic-play").classList.remove("hidden");
-      btn.querySelector(".ic-pause").classList.add("hidden");
-      bars && bars.classList.remove("playing");
-      sessionStorage.removeItem("musicPlaying");
+  if (!isAlbumPage) {
+    initHero();          // logo + tên
+    initGuestMode();     // ẩn/hiện section theo chế độ khách
+    initTimeline();
+    initCouple();
+    initFamily();
+    initEvents();
+    initCountdown();
+    initGallery();
+    initRSVP();
+    if (!_isGuestMode) {
+      initShare();       // QR link gốc chỉ cho chủ thiệp
     }
+    initScrollReveal();
+    // Enter key tạo link
+    const inp = document.getElementById("guestNameInput");
+    if (inp) inp.addEventListener("keydown", e => { if (e.key === "Enter") generateGuestLink(); });
   }
-
-  // Tự phát khi người dùng chạm/click lần đầu
-  function tryAutoplay() {
-    audio.play().then(() => {
-      setPlaying(true);
-      document.removeEventListener("click",     tryAutoplay);
-      document.removeEventListener("touchstart", tryAutoplay);
-    }).catch(() => {});
-  }
-
-  // Nếu trang trước đang phát → tự phát lại ngay
-  if (sessionStorage.getItem("musicPlaying") === "1") {
-    tryAutoplay();
-  } else {
-    // Chờ người dùng chạm lần đầu
-    document.addEventListener("click",     tryAutoplay, { once: true });
-    document.addEventListener("touchstart", tryAutoplay, { once: true });
-  }
-
-  // Nút bật/tắt thủ công
-  btn.addEventListener("click", (e) => {
-    e.stopPropagation(); // không trigger tryAutoplay
-    if (audio.paused) {
-      audio.play().then(() => setPlaying(true)).catch(() => {});
-    } else {
-      audio.pause();
-      setPlaying(false);
-    }
-  });
-}
 });
 
 /* ============================================================
@@ -246,7 +196,7 @@ function initGuestMode() {
     const name = decodeURIComponent(guest);
     const greetEl = document.getElementById("guestGreeting");
     if (greetEl) {
-      greetEl.textContent = `${name}`;
+      greetEl.textContent = `🎉 ${name}`;
       greetEl.style.display = "inline-block";
     }
 
