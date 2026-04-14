@@ -75,16 +75,28 @@ const CONFIG = {
     { src: "images/BEN_0690.jpg", cap: "Chú rể lịch lãm" },
     { src: "images/01.jpg",       cap: "Lời cầu hôn" },
     { src: "images/02.jpg",       cap: "Ngày trọng đại" },
-    { src: "https://drive.google.com/thumbnail?id==1ErDSCB3d8hUPOnhYHN9tgBkbM7msjM97", cat: "anh-cuoi",  cap: "Ảnh cưới đẹp" },
+    { src: "images/03.jpg",       cap: "Ngày trọng đại" },
+     { src: "images/BEN_0044.jpg", cap: "Ngày trọng đại" },
+     { src: "images/03.jpg",       cap: "Ngày trọng đại" },
+     { src: "images/03.jpg",       cap: "Ngày trọng đại" },
+     { src: "images/03.jpg",       cap: "Ngày trọng đại" },
+     { src: "images/03.jpg",       cap: "Ngày trọng đại" },
   ],
 
   albumImages: [
-    { src: "images/BEN_0610.jpg", cat: "anh-cuoi", cap: "Cô dâu" },
-    { src: "images/BEN_0690.jpg", cat: "anh-cuoi", cap: "Chú rể" },
-    { src: "images/01.jpg",       cat: "dinh-hon", cap: "Cầu hôn" },
-    { src: "images/02.jpg",       cat: "anh-cuoi", cap: "Ngày cưới" },
-    { src: "https://drive.google.com/thumbnail?id==1ErDSCB3d8hUPOnhYHN9tgBkbM7msjM97", cat: "anh-cuoi",  cap: "Ảnh cưới đẹp" },
-  ]
+    { src: "images/BEN_0610.jpg", cat: "anh-cuoi", cap: "Ảnh cưới đẹp" },
+    { src: "images/BEN_0690.jpg", cat: "anh-cuoi", cap: "Ảnh cưới đẹp" },
+    { src: "images/01.jpg",       cat: "anh-cuoi", cap: "Ảnh cưới đẹp" },
+    { src: "images/02.jpg",       cat: "dinh-hon", cap: "Ảnh cưới đẹp" },
+    { src: "images/03.jpg",       cat: "anh-cuoi", cap: "Ảnh cưới đẹp" },
+     { src: "images/BEN_0044.jpg",       cat: "anh-cuoi", cap: "Ảnh cưới đẹp" },
+     { src: "images/03.jpg",       cat: "anh-cuoi", cap: "Ảnh cưới đẹp" },
+     { src: "images/03.jpg",       cat: "anh-cuoi", cap: "Ảnh cưới đẹp" },
+     { src: "images/03.jpg",       cat: "anh-cuoi", cap: "Ảnh cưới đẹp" },
+     { src: "images/03.jpg",       cat: "anh-cuoi", cap: "Ảnh cưới đẹp" },
+     { src: "images/03.jpg",       cat: "anh-cuoi", cap: "Ảnh cưới đẹp" },
+     { src: "images/03.jpg",       cat: "anh-cuoi", cap: "Ảnh cưới đẹp" },
+   ]
 };
 
 /* ============================================================
