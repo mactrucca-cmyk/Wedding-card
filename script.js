@@ -55,7 +55,7 @@ const CONFIG = {
   contactPhone: "0366 432 416",
   musicFile:    "music/romantic.mp3",
 
-  googleScriptUrl: "https://script.google.com/macros/s/AKfycbyndotP5M57imn75uQHP2WPmSX5HMDygwjbe0uk1QD018M9j7rRfY7qmUXUXjJWMJHYmA/exec",
+  googleScriptUrl: "https://script.google.com/macros/s/AKfycbwMF1xAyzKHFBSETwAFvCO7fbZd3kuAumh3gBU4dxlOmVFEbG07MCYDAuRqxPxJz1ys7Q/exec",
 
   timeline: [
     {
