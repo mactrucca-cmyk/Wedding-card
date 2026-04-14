@@ -257,7 +257,7 @@ function initGuestMode() {
   if (guest) {
     const name    = decodeURIComponent(guest);
     const greetEl = document.getElementById("guestGreeting");
-    if (greetEl) { greetEl.textContent = `{name}`; greetEl.style.display = "inline-block"; }
+    if (greetEl) { greetEl.textContent = `${name}`; greetEl.style.display = "inline-block"; }
 
     // Ẩn section chỉ dành cho chủ thiệp
     document.querySelectorAll(".owner-only").forEach(el => el.style.display = "none");
