@@ -4,7 +4,7 @@
 ============================================================ */
 
 /* ============================================================
-   ⚙️  CẤU HÌNH – Chỉnh sửa thông tin tại đây
+   ⚙️  CẤU HÌNH
 ============================================================ */
 const CONFIG = {
   groomName:  "Lâm Tứ Nhật",
@@ -17,7 +17,6 @@ const CONFIG = {
   brideBio:   "",
   bridePhoto: "images/BEN_0610.jpg",
 
-  // File logo – đặt logo.png vào cùng thư mục với index.html
   logoFile: "logo.png",
 
   weddingDate:        "2026-05-10T11:00:00",
@@ -56,10 +55,7 @@ const CONFIG = {
   contactPhone: "0366 432 416",
   musicFile:    "music/romantic.mp3",
 
-  // ── Google Apps Script URL để lưu RSVP vào Google Sheet ──
-  // Hướng dẫn tạo: xem README.md hoặc phần cuối file này
-  // Sau khi có URL, dán vào đây:
-  googleScriptUrl: "https://script.google.com/macros/s/AKfycbz8A69TLoz5IoAAchTigESUXCmvhM3fh_8_sZ5jasNK9TWu4gbLhN1yscMdPERqZZvyHw/exec",   // VD: "https://script.google.com/macros/s/AKfy.../exec"
+  googleScriptUrl: "https://script.google.com/macros/s/AKfycbz8A69TLoz5IoAAchTigESUXCmvhM3fh_8_sZ5jasNK9TWu4gbLhN1yscMdPERqZZvyHw/exec",
 
   timeline: [
     {
@@ -79,7 +75,6 @@ const CONFIG = {
     { src: "images/BEN_0690.jpg", cap: "Chú rể lịch lãm" },
     { src: "images/01.jpg",       cap: "Lời cầu hôn" },
     { src: "images/02.jpg",       cap: "Ngày trọng đại" },
-    // { src: "images/TEN_ANH.jpg", cap: "Chú thích" },
   ],
 
   albumImages: [
@@ -87,7 +82,6 @@ const CONFIG = {
     { src: "images/BEN_0690.jpg", cat: "anh-cuoi", cap: "Chú rể" },
     { src: "images/01.jpg",       cat: "dinh-hon", cap: "Cầu hôn" },
     { src: "images/02.jpg",       cat: "anh-cuoi", cap: "Ngày cưới" },
-    // { src: "images/TEN_ANH.jpg", cat: "anh-cuoi", cap: "Chú thích" },
   ]
 };
 
@@ -97,81 +91,23 @@ const CONFIG = {
 let lbPhotos = [], lbIndex = 0;
 let isAlbumPage = false;
 let _currentGuestUrl = "";
-let _isGuestMode = false; // true khi URL có ?guest=
+let _isGuestMode = false;
 
 /* ============================================================
    INIT
+   BUG FIX: initMusicPlayer() được gọi đúng chỗ,
+   không còn bị khai báo lồng bên trong DOMContentLoaded
 ============================================================ */
 document.addEventListener("DOMContentLoaded", () => {
-  isAlbumPage = document.body.classList.contains("album-page");
+  isAlbumPage  = document.body.classList.contains("album-page");
   _isGuestMode = new URLSearchParams(window.location.search).has("guest");
 
   initParticles();
-function initMusicPlayer() {
-  const btn   = document.getElementById("musicToggle");
-  const audio = document.getElementById("bgMusic");
-  const bars  = document.getElementById("musicBars");
-  if (!btn || !audio) return;
-
-  audio.src  = CONFIG.musicFile;
-  audio.loop = true;
-
-  // Lưu vị trí nhạc vào sessionStorage để tiếp tục khi chuyển trang
-  const saved = sessionStorage.getItem("musicTime");
-  if (saved) audio.currentTime = parseFloat(saved);
-
-  // Lưu vị trí mỗi giây
-  setInterval(() => {
-    if (!audio.paused) sessionStorage.setItem("musicTime", audio.currentTime);
-  }, 1000);
-
-  function setPlaying(playing) {
-    if (playing) {
-      btn.querySelector(".ic-play").classList.add("hidden");
-      btn.querySelector(".ic-pause").classList.remove("hidden");
-      bars && bars.classList.add("playing");
-      sessionStorage.setItem("musicPlaying", "1");
-    } else {
-      btn.querySelector(".ic-play").classList.remove("hidden");
-      btn.querySelector(".ic-pause").classList.add("hidden");
-      bars && bars.classList.remove("playing");
-      sessionStorage.removeItem("musicPlaying");
-    }
-  }
-
-  // Tự phát khi người dùng chạm/click lần đầu
-  function tryAutoplay() {
-    audio.play().then(() => {
-      setPlaying(true);
-      document.removeEventListener("click",     tryAutoplay);
-      document.removeEventListener("touchstart", tryAutoplay);
-    }).catch(() => {});
-  }
-
-  // Nếu trang trước đang phát → tự phát lại ngay
-  if (sessionStorage.getItem("musicPlaying") === "1") {
-    tryAutoplay();
-  } else {
-    // Chờ người dùng chạm lần đầu
-    document.addEventListener("click",     tryAutoplay, { once: true });
-    document.addEventListener("touchstart", tryAutoplay, { once: true });
-  }
-
-  // Nút bật/tắt thủ công
-  btn.addEventListener("click", (e) => {
-    e.stopPropagation(); // không trigger tryAutoplay
-    if (audio.paused) {
-      audio.play().then(() => setPlaying(true)).catch(() => {});
-    } else {
-      audio.pause();
-      setPlaying(false);
-    }
-  });
-}
+  initMusicPlayer(); // ← FIX: gọi đúng chỗ
 
   if (!isAlbumPage) {
-    initHero();          // logo + tên
-    initGuestMode();     // ẩn/hiện section theo chế độ khách
+    initHero();
+    initGuestMode();
     initTimeline();
     initCouple();
     initFamily();
@@ -179,11 +115,8 @@ function initMusicPlayer() {
     initCountdown();
     initGallery();
     initRSVP();
-    if (!_isGuestMode) {
-      initShare();       // QR link gốc chỉ cho chủ thiệp
-    }
+    if (!_isGuestMode) initShare();
     initScrollReveal();
-    // Enter key tạo link
     const inp = document.getElementById("guestNameInput");
     if (inp) inp.addEventListener("keydown", e => { if (e.key === "Enter") generateGuestLink(); });
   }
@@ -194,12 +127,13 @@ function initMusicPlayer() {
 ============================================================ */
 function initAlbumPage() {
   initParticles();
+  initMusicPlayer(); // nhạc chạy cả trang album
   initAlbumFilter();
   renderAlbum("all");
 }
 
 /* ============================================================
-   HERO – Logo + Tên + Lời mời to & đậm
+   HERO
 ============================================================ */
 function initHero() {
   _setTxt("heroGroom",  CONFIG.groomShort);
@@ -212,23 +146,17 @@ function initHero() {
   const pt = document.getElementById("pageTitle");
   if (pt) pt.textContent = `Thiệp Cưới – ${CONFIG.groomShort} & ${CONFIG.brideShort}`;
 
-  // ── Inject logo vào ring ──
   const ring = document.getElementById("heroLogoRing");
   if (!ring) return;
-
   const img = document.createElement("img");
   img.className = "hero-logo-img";
   img.alt = `${CONFIG.groomShort} & ${CONFIG.brideShort}`;
-
-  // Fallback SVG (hiện ngay, bị thay bởi ảnh khi load thành công)
   const svgFallback = _makeLogoSVG();
-
-  img.onload  = () => { svgFallback.remove(); };           // ảnh load OK → xoá SVG
-  img.onerror = () => { img.remove(); };                   // ảnh lỗi → SVG ở lại
-
-  ring.appendChild(svgFallback);  // SVG hiện trước
-  ring.appendChild(img);          // ảnh load song song
-  img.src = CONFIG.logoFile;      // bắt đầu load
+  img.onload  = () => { svgFallback.remove(); };
+  img.onerror = () => { img.remove(); };
+  ring.appendChild(svgFallback);
+  ring.appendChild(img);
+  img.src = CONFIG.logoFile;
 }
 
 function _makeLogoSVG() {
@@ -245,35 +173,28 @@ function _makeLogoSVG() {
 }
 
 /* ============================================================
-   GUEST MODE – ẩn/hiện section đúng theo URL
+   GUEST MODE
 ============================================================ */
 function initGuestMode() {
   const params = new URLSearchParams(window.location.search);
   const guest  = params.get("guest");
 
   if (guest) {
-    // ── Chế độ KHÁCH ──
-    const name = decodeURIComponent(guest);
+    const name    = decodeURIComponent(guest);
     const greetEl = document.getElementById("guestGreeting");
-    if (greetEl) {
-      greetEl.textContent = `🎉 ${name}`;
-      greetEl.style.display = "inline-block";
-    }
+    if (greetEl) { greetEl.textContent = `🎉 ${name}`; greetEl.style.display = "inline-block"; }
 
-    // Ẩn section "Tạo link" và "Share chung"
+    // Ẩn section chỉ dành cho chủ thiệp
     document.querySelectorAll(".owner-only").forEach(el => el.style.display = "none");
 
-    // Hiện QR link khách trong hero
+    // Hiện QR trong hero
     const qrWrap = document.getElementById("heroGuestQr");
     if (qrWrap) {
       qrWrap.classList.remove("hidden");
       const qrBox = document.getElementById("hgqQrBox");
       if (qrBox) _buildQR(qrBox, window.location.href);
     }
-
   } else {
-    // ── Chế độ CHỦ THIỆP ──
-    // Ẩn QR khách ở hero
     const qrWrap = document.getElementById("heroGuestQr");
     if (qrWrap) qrWrap.style.display = "none";
   }
@@ -414,17 +335,7 @@ function initGallery() {
 }
 
 /* ============================================================
-   RSVP – gửi Google Sheet + localStorage backup
-   ─────────────────────────────────────────────
-   Google Apps Script code (dán vào script.google.com):
-
-   function doPost(e) {
-     const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-     const d = JSON.parse(e.postData.contents);
-     sheet.appendRow([d.time, d.name, d.phone, d.event, d.guests, d.attend, d.msg]);
-     return ContentService.createTextOutput("ok");
-   }
-   function doGet(e) { return ContentService.createTextOutput("ok"); }
+   RSVP – Google Sheet + localStorage
 ============================================================ */
 function initRSVP() { renderRSVPList(); }
 
@@ -442,10 +353,9 @@ async function submitRSVP(e) {
 
   const data = { name, phone, event, guests, attend, msg, time: new Date().toLocaleString("vi-VN") };
 
-  // Loading
-  const btn     = document.getElementById("rsvpSubmitBtn");
-  const btnTxt  = document.getElementById("rsvpBtnTxt");
-  const dots    = document.getElementById("rsvpDots");
+  const btn    = document.getElementById("rsvpSubmitBtn");
+  const btnTxt = document.getElementById("rsvpBtnTxt");
+  const dots   = document.getElementById("rsvpDots");
   if (btn) btn.disabled = true;
   if (btnTxt) btnTxt.classList.add("hidden");
   if (dots) dots.classList.remove("hidden");
@@ -455,7 +365,7 @@ async function submitRSVP(e) {
   stored.unshift(data);
   localStorage.setItem("weddingRSVP", JSON.stringify(stored));
 
-  // Gửi Google Sheet nếu có URL
+  // Gửi Google Sheet
   if (CONFIG.googleScriptUrl && CONFIG.googleScriptUrl.startsWith("http")) {
     try {
       await fetch(CONFIG.googleScriptUrl, {
@@ -469,7 +379,6 @@ async function submitRSVP(e) {
     }
   }
 
-  // Hiện thành công
   setTimeout(() => {
     if (btn) btn.disabled = false;
     if (btnTxt) btnTxt.classList.remove("hidden");
@@ -513,7 +422,7 @@ function renderRSVPList() {
 }
 
 /* ============================================================
-   SHARE CHUNG (chỉ chủ thiệp)
+   SHARE
 ============================================================ */
 function initShare() {
   const qrBox = document.getElementById("qrBox");
@@ -530,7 +439,7 @@ function copyLink() {
 }
 
 /* ============================================================
-   TẠO LINK MỜI KHÁCH
+   TẠO LINK KHÁCH
 ============================================================ */
 function generateGuestLink() {
   const input = document.getElementById("guestNameInput");
@@ -553,7 +462,13 @@ function generateGuestLink() {
   if (urlEl) urlEl.value = url;
 
   const qrEl = document.getElementById("glrQr");
-  if (qrEl) { qrEl.innerHTML = ""; _buildQR(qrEl, url); const p=document.createElement("p"); p.textContent="Quét QR để mở thiệp"; qrEl.appendChild(p); }
+  if (qrEl) {
+    qrEl.innerHTML = "";
+    _buildQR(qrEl, url);
+    const p = document.createElement("p");
+    p.textContent = "Quét QR để mở thiệp";
+    qrEl.appendChild(p);
+  }
 
   showToast(`✓ Đã tạo link cho "${name}"`);
   result && result.scrollIntoView({ behavior:"smooth", block:"nearest" });
@@ -577,7 +492,10 @@ function openLB(index, photos) {
   document.getElementById("lightbox").classList.remove("hidden");
   document.body.style.overflow="hidden";
 }
-function closeLB() { document.getElementById("lightbox").classList.add("hidden"); document.body.style.overflow=""; }
+function closeLB() {
+  document.getElementById("lightbox").classList.add("hidden");
+  document.body.style.overflow="";
+}
 function lbNav(dir) { lbIndex=(lbIndex+dir+lbPhotos.length)%lbPhotos.length; renderLB(); }
 function renderLB() {
   const img=document.getElementById("lbImg"), cap=document.getElementById("lbCaption");
@@ -598,23 +516,64 @@ document.addEventListener("keydown", e => {
 
 /* ============================================================
    MUSIC PLAYER
+   BUG FIX: Hàm duy nhất, đúng logic autoplay + sessionStorage
 ============================================================ */
 function initMusicPlayer() {
-  const btn=document.getElementById("musicToggle"), audio=document.getElementById("bgMusic"), bars=document.getElementById("musicBars");
-  if(!btn||!audio) return;
-  audio.src=CONFIG.musicFile;
-  btn.addEventListener("click",()=>{
-    if(audio.paused){
-      audio.play().then(()=>{
-        btn.querySelector(".ic-play").classList.add("hidden");
-        btn.querySelector(".ic-pause").classList.remove("hidden");
-        bars&&bars.classList.add("playing");
-      }).catch(()=>showToast("Không thể phát nhạc. Thêm file vào /music/"));
+  const btn   = document.getElementById("musicToggle");
+  const audio = document.getElementById("bgMusic");
+  const bars  = document.getElementById("musicBars");
+  if (!btn || !audio) return;
+
+  audio.src  = CONFIG.musicFile;
+  audio.loop = true;
+
+  // Khôi phục vị trí nhạc khi chuyển trang
+  const savedTime = sessionStorage.getItem("musicTime");
+  if (savedTime) audio.currentTime = parseFloat(savedTime);
+
+  // Lưu vị trí mỗi giây
+  setInterval(() => {
+    if (!audio.paused) sessionStorage.setItem("musicTime", audio.currentTime);
+  }, 1000);
+
+  function setPlaying(playing) {
+    if (playing) {
+      btn.querySelector(".ic-play").classList.add("hidden");
+      btn.querySelector(".ic-pause").classList.remove("hidden");
+      bars && bars.classList.add("playing");
+      sessionStorage.setItem("musicPlaying", "1");
     } else {
-      audio.pause();
       btn.querySelector(".ic-play").classList.remove("hidden");
       btn.querySelector(".ic-pause").classList.add("hidden");
-      bars&&bars.classList.remove("playing");
+      bars && bars.classList.remove("playing");
+      sessionStorage.removeItem("musicPlaying");
+    }
+  }
+
+  // Auto-play khi người dùng chạm lần đầu
+  function tryAutoplay() {
+    audio.play()
+      .then(() => { setPlaying(true); })
+      .catch(() => {});
+  }
+
+  if (sessionStorage.getItem("musicPlaying") === "1") {
+    // Trang trước đang phát → phát tiếp ngay
+    tryAutoplay();
+  } else {
+    // Chờ click/touch lần đầu
+    document.addEventListener("click",     tryAutoplay, { once: true });
+    document.addEventListener("touchstart", tryAutoplay, { once: true, passive: true });
+  }
+
+  // Nút bật/tắt thủ công
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation(); // không trigger tryAutoplay
+    if (audio.paused) {
+      audio.play().then(() => setPlaying(true)).catch(() => {});
+    } else {
+      audio.pause();
+      setPlaying(false);
     }
   });
 }
