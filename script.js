@@ -75,7 +75,7 @@ const CONFIG = {
     { src: "images/BEN_0690.jpg", cap: "Chú rể lịch lãm" },
     { src: "images/01.jpg",       cap: "Lời cầu hôn" },
     { src: "images/02.jpg",       cap: "Ngày trọng đại" },
-    { src: "https://drive.google.com/file/1ErDSCB3d8hUPOnhYHN9tgBkbM7msjM97", cat: "anh-cuoi",  cap: "Ảnh cưới đẹp" },
+    { src: "https://drive.google.com/uc?export=view&id=1ErDSCB3d8hUPOnhYHN9tgBkbM7msjM97", cat: "anh-cuoi",  cap: "Ảnh cưới đẹp" },
   ],
 
   albumImages: [
@@ -83,7 +83,7 @@ const CONFIG = {
     { src: "images/BEN_0690.jpg", cat: "anh-cuoi", cap: "Chú rể" },
     { src: "images/01.jpg",       cat: "dinh-hon", cap: "Cầu hôn" },
     { src: "images/02.jpg",       cat: "anh-cuoi", cap: "Ngày cưới" },
-    { src: "https://drive.google.com/file/1ErDSCB3d8hUPOnhYHN9tgBkbM7msjM97", cat: "anh-cuoi",  cap: "Ảnh cưới đẹp" },
+    { src: "https://drive.google.com/uc?export=view&id=1ErDSCB3d8hUPOnhYHN9tgBkbM7msjM97", cat: "anh-cuoi",  cap: "Ảnh cưới đẹp" },
   ]
 };
 
