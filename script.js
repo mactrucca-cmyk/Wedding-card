@@ -71,10 +71,8 @@ const CONFIG = {
   ],
 
   gallery: [
-        { src: "images/01.jpg",       cap: "Ngày trọng đại" },
-     { src: "images/02.jpg",       cap: "Ngày trọng đại" },
-     { src: "images/BEN_0610.jpg", cap: "Cô dâu xinh đẹp" },
-    { src: "images/BEN_0690.jpg", cap: "Chú rể lịch lãm" },
+    { src: "images/01.jpg",       cap: "Ngày trọng đại" },
+    { src: "images/02.jpg",       cap: "Ngày trọng đại" },
     { src: "images/BEN_9264.jpg",       cap: "Ngày trọng đại" },
     { src: "images/BEN_9164.jpg",       cap: "Ngày trọng đại" },
     { src: "images/BEN_9555.jpg",       cap: "Ngày trọng đại" },
